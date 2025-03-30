@@ -27,34 +27,35 @@ import java.util.Map;
 public class SecretFinderTest {
     private static final List<Pattern> secretPatterns = new ArrayList<>();
     private static final Map<Pattern, String> secretTypes = new HashMap<>();
-    private static final String testText = "AIzaSyCH5l76m9uzR8R3V5v57r095367890123456789012345 " +
-            "6Ld-GgUaAAAAAAABBBBBBCCCCCCCCDDDDDDDDEEE 6Ld-GgUaAAAAAAABBBBBBCCCCCCCCDDDDDDDD1EEE " +
-            "ya29.a0987654321qwertyuiopasdfghjklzxcvbnm " +
-            "AKIAIOSFODNN7EXAMPLE " +
-            "amzn.mws.44ac3820-117a-4ba5-b5f7-f018e05a8400 " +
-            "EAACEdEose0cBA1234567890abcdefghijklmnopqrstuvwxyz " +
-            "key-1234567890abcdef1234567890abcdef " +
-            "SK1234567890abcdef1234567890abcdef " +
-            "AC1234567890abcdef1234567890abcdef " +
-            "sk_live_1234567890abcdef12345678 " +
-            "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== " +
-            "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c " +
-            "apikey 1234567890abcdef " +
-            "-----BEGIN RSA PRIVATE KEY----- " +
-            "-----BEGIN DSA PRIVATE KEY----- " +
-            "-----BEGIN EC PRIVATE KEY----- " +
-            "-----BEGIN PGP PRIVATE KEY BLOCK----- " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c " +
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 " +
-            "test@example.com " +
-            "https://www.example.com/path " +
-            "192.168.1.1 " +
-            "123e4567-e89b-12d3-a456-426614174000 " +
-            "password=secret123 api_key=\"my_api_key_12345678901234567890\" access-token='long_access_token_123456789012345678901234567890'";
+private static final String testText ="""
+AIzaSyCH5l76m9uzR8R3V5v57r095367890123456789012345 
+6Ld-GgUaAAAAAAABBBBBBCCCCCCCCDDDDDDDDEEE 6Ld-GgUaAAAAAAABBBBBBCCCCCCCCDDDDDDDD1EEE 
+ya29.a0987654321qwertyuiopasdfghjklzxcvbnm 
+AKIAIOSFODNN7EXAMPLE 
+amzn.mws.44ac3820-117a-4ba5-b5f7-f018e05a8400 
+EAACEdEose0cBA1234567890abcdefghijklmnopqrstuvwxyz 
+key-1234567890abcdef1234567890abcdef 
+SK1234567890abcdef1234567890abcdef 
+AC1234567890abcdef1234567890abcdef 
+sk_live_1234567890abcdef12345678 
+Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== 
+bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c 
+apikey 1234567890abcdef 
+-----BEGIN RSA PRIVATE KEY----- 
+-----BEGIN DSA PRIVATE KEY----- 
+-----BEGIN EC PRIVATE KEY----- 
+-----BEGIN PGP PRIVATE KEY BLOCK----- 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c 
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 
+test@example.com 
+https://www.example.com/path 
+192.168.1.1 
+123e4567-e89b-12d3-a456-426614174000 
+password=secret123 api_key=\"my_api_key_12345678901234567890\" access-token='long_access_token_123456789012345678901234567890'""";
 
     public static void main(String[] args) throws Exception {
-        testSinglePattern();
-//         loadSecretPatterns();
+//        testSinglePattern();
+        loadSecretPatterns();
          
         // Test each pattern against the test text
         for (Pattern pattern : secretPatterns) {
