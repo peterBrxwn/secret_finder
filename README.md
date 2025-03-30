@@ -34,6 +34,8 @@ The extension detects the following types of secrets:
 - Email Addresses
 - URLs and IP Addresses
 
+**Note:** The regular expressions used in this extension were sourced from the following repository: [https://github.com/Lu3ky13/Search-for-all-leaked-keys-secrets-using-one-regex-](https://github.com/Lu3ky13/Search-for-all-leaked-keys-secrets-using-one-regex-).
+
 ## Contributing
 If you would like to contribute or suggest additional regex patterns, feel free to submit a pull request or open an issue.
 
@@ -41,4 +43,3 @@ If you would like to contribute or suggest additional regex patterns, feel free 
 Copyright (c) 2022-2023 PortSwigger Ltd. All rights reserved.
 
 This extension is provided for use with Burp Suite Community and Professional editions, subject to their respective license agreements.
-

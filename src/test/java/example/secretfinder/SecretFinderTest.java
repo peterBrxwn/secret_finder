@@ -1,5 +1,17 @@
 /*
- * For Testing
+ * SecretFinderTest.java
+ *
+ * This class provides unit tests for the SecretFinder Burp Suite extension.
+ * It loads a set of regular expressions designed to detect sensitive information
+ * and then tests these patterns against a predefined string containing various
+ * types of secrets.
+ *
+ * The purpose is to verify that the regular expressions correctly identify
+ * and match the expected secret patterns.
+ *
+ * The testText string contains a wide variety of secrets found in the wild.
+ *
+ * Note: Some regular expressions may not function as intended.
  */
 
 package example.secretfinder;
@@ -42,8 +54,8 @@ public class SecretFinderTest {
         for (Pattern pattern : secretPatterns) {
             Matcher matcher = pattern.matcher(testText);
             if (matcher.find()) {
-                // System.out.println("Pattern matched: " + pattern.pattern());
-                // System.out.println("Found: " + matcher.group());
+                System.out.println("Pattern matched: " + pattern.pattern());
+                System.out.println("Found: " + matcher.group());
             } else {
                 System.out.println("Pattern did not match: " + pattern.pattern());
             }

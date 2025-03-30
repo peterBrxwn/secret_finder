@@ -1,9 +1,18 @@
 /*
+ * SecretFinder.java
+ *
  * Copyright (c) 2022-2023. PortSwigger Ltd. All rights reserved.
  *
  * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
+ *
+ * SecretFinder is a Burp Suite extension that scans HTTP responses for leaked API keys,
+ * tokens, credentials, and other sensitive information. It uses a set of predefined
+ * regular expressions to detect a wide range of secrets.
+ *
+ * This extension implements the BurpExtension and HttpHandler interfaces, allowing it
+ * to intercept and analyze HTTP responses within Burp Suite.
  */
 
 package example.secretfinder;
@@ -19,7 +28,6 @@ import burp.api.montoya.http.handler.*;
 
 import static burp.api.montoya.http.handler.RequestToBeSentAction.continueWith;
 import static burp.api.montoya.http.handler.ResponseReceivedAction.continueWith;
-
 
 import java.util.ArrayList;
 import java.util.List;
