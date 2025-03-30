@@ -87,7 +87,7 @@ public class SecretFinder implements BurpExtension, HttpHandler {
         secretPatterns.add(Pattern.compile("bearer\\s*[a-zA-Z0-9_\\-.=:\\+/-]+")); // Bearer Token
         secretTypes.put(secretPatterns.getLast(), "Bearer Token");
 
-        secretPatterns.add(Pattern.compile("api[key|\\s*]+[a-zA-Z0-9_\\-]+")); // Generic API Key
+        secretPatterns.add(Pattern.compile("api[key|\\s*]+[a-zA-Z0-9_\\-]{16,}")); // Generic API Key
         secretTypes.put(secretPatterns.getLast(), "Generic API Key");
 
         secretPatterns.add(Pattern.compile("-----BEGIN RSA PRIVATE KEY-----")); // RSA Private Key
@@ -102,7 +102,7 @@ public class SecretFinder implements BurpExtension, HttpHandler {
         secretPatterns.add(Pattern.compile("-----BEGIN PGP PRIVATE KEY BLOCK-----")); // PGP Private Key
         secretTypes.put(secretPatterns.getLast(), "PGP Private Key");
 
-        secretPatterns.add(Pattern.compile("ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]*")); // JWT Token
+        secretPatterns.add(Pattern.compile("ey[A-Za-z0-9-_=]+\\.ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]*")); // JWT Token
         secretTypes.put(secretPatterns.getLast(), "JWT Token");
 
         secretPatterns.add(Pattern.compile("Bearer [A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+")); // JWT in Authorization Header
@@ -111,8 +111,8 @@ public class SecretFinder implements BurpExtension, HttpHandler {
         secretPatterns.add(Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,7}")); // Email
         secretTypes.put(secretPatterns.getLast(), "Email");
 
-//        secretPatterns.add(Pattern.compile("https?://(?:www\\.)?[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}(?:/[\\w\\-._~:/?#\\[\\]@!$&'()*+,;=]*)?")); // URL
-//        secretTypes.put(secretPatterns.getLast(), "URL");
+        // secretPatterns.add(Pattern.compile("https?://(?:www\\.)?[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}(?:/[\\w\\-._~:/?#\\[\\]@!$&'()*+,;=]*)?")); // URL
+        // secretTypes.put(secretPatterns.getLast(), "URL");
 
         secretPatterns.add(Pattern.compile("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")); // IPv4 Address
         secretTypes.put(secretPatterns.getLast(), "IPv4 Address");
@@ -120,7 +120,7 @@ public class SecretFinder implements BurpExtension, HttpHandler {
         secretPatterns.add(Pattern.compile("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")); // UUID
         secretTypes.put(secretPatterns.getLast(), "UUID");
 
-        secretPatterns.add(Pattern.compile("(?:password|passwd|pwd|token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]+)['\"]?")); // Password/Secrets Assignment
+        secretPatterns.add(Pattern.compile("(?:password|passwd|pwd|token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]{8,})['\"]?")); // Password/Secrets Assignment
         secretTypes.put(secretPatterns.getLast(), "Password/Secrets Assignment");
 
         secretPatterns.add(Pattern.compile("(?:api[_-]?key|access[_-]?token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]{20,})['\"]?")); // API Key Assignment

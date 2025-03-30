@@ -70,8 +70,8 @@ public class SecretFinderTest {
     }
 
     private static void testSinglePattern() {
-        Pattern pattern = Pattern.compile("(?:api[_-]?key|access[_-]?token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]{20,})['\"]?");
-        String testString = "token: string  key public 999.999.999.999 hello";
+        Pattern pattern = Pattern.compile("api[key|\\s*]+[a-zA-Z0-9_\\-]{16,}");
+        String testString = "apikey 1234567890abcdef    key public 999.999.999.999 hello";
 
         Matcher matcher = pattern.matcher(testString);
         if (matcher.find()) {
@@ -118,7 +118,7 @@ public class SecretFinderTest {
         secretPatterns.add(Pattern.compile("bearer\\s*[a-zA-Z0-9_\\-.=:\\+/-]+")); // Bearer Token
         secretTypes.put(secretPatterns.getLast(), "Bearer Token");
 
-        secretPatterns.add(Pattern.compile("api[key|\\s*]+[a-zA-Z0-9_\\-]+")); // Generic API Key
+        secretPatterns.add(Pattern.compile("api[key|\\s*]+[a-zA-Z0-9_\\-]{16,}")); // Generic API Key
         secretTypes.put(secretPatterns.getLast(), "Generic API Key");
 
         secretPatterns.add(Pattern.compile("-----BEGIN RSA PRIVATE KEY-----")); // RSA Private Key
@@ -133,7 +133,7 @@ public class SecretFinderTest {
         secretPatterns.add(Pattern.compile("-----BEGIN PGP PRIVATE KEY BLOCK-----")); // PGP Private Key
         secretTypes.put(secretPatterns.getLast(), "PGP Private Key");
 
-        secretPatterns.add(Pattern.compile("ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]*")); // JWT Token
+        secretPatterns.add(Pattern.compile("ey[A-Za-z0-9-_=]+\\.ey[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]*")); // JWT Token
         secretTypes.put(secretPatterns.getLast(), "JWT Token");
 
         secretPatterns.add(Pattern.compile("Bearer [A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+")); // JWT in Authorization Header
@@ -151,7 +151,7 @@ public class SecretFinderTest {
         secretPatterns.add(Pattern.compile("[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")); // UUID
         secretTypes.put(secretPatterns.getLast(), "UUID");
 
-        secretPatterns.add(Pattern.compile("(?:password|passwd|pwd|token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]+)['\"]?")); // Password/Secrets Assignment
+        secretPatterns.add(Pattern.compile("(?:password|passwd|pwd|token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]{8,})['\"]?")); // Password/Secrets Assignment
         secretTypes.put(secretPatterns.getLast(), "Password/Secrets Assignment");
 
         secretPatterns.add(Pattern.compile("(?:api[_-]?key|access[_-]?token|secret)[=:]\\s*['\"]?([a-zA-Z0-9_-]{20,})['\"]?")); // API Key Assignment
